@@ -6,8 +6,7 @@ It is implemented using **React + TypeScript + Tailwind CSS** and includes impro
 
 ---
 
-## 🚀 Live Demo  
-*(Add your deployed Vercel/Netlify link here)*  
+## 🚀 Live Demo   
 **Demo:** https://figma-quiz-frontend.vercel.app
 
 ---
