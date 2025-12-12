@@ -8,7 +8,7 @@ It is implemented using **React + TypeScript + Tailwind CSS** and includes impro
 
 ## 🚀 Live Demo  
 *(Add your deployed Vercel/Netlify link here)*  
-**Demo:** https://your-live-demo-url.vercel.app/
+**Demo:** https://figma-quiz-frontend.vercel.app
 
 ---
 
