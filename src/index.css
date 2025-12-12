@@ -10,14 +10,20 @@
 
 /* then your custom CSS ... */
 :root {
-  --bg: #eef9fb;
+  --bg: #baecf5;
   --card: #f7feff;
   --accent: #4aa7b7;
   --muted: #6b828a;
 }
 
 body {
-  background: var(--bg);
+  background: linear-gradient(
+  107.96deg,
+  #BECFEE 0%,
+  #71C6E2 50%,
+  #D9F4FA 75%,
+  #BECFEE 100%
+);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto;
 }
 
