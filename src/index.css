@@ -1,0 +1,54 @@
+
+@charset "utf-8";
+
+/* Google fonts import MUST be before tailwind and other rules */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant%2BGaramond:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* then your custom CSS ... */
+:root {
+  --bg: #eef9fb;
+  --card: #f7feff;
+  --accent: #4aa7b7;
+  --muted: #6b828a;
+}
+
+body {
+  background: var(--bg);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto;
+}
+
+/* card style used across */
+.quiz-card {
+  background: var(--card);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(10,20,30,0.04);
+}
+
+/* subtle focus outline for a11y */
+.focus-ring:focus {
+  outline: 3px solid rgba(74,167,183,0.22);
+  outline-offset: 2px;
+}
+
+/* Hero serif */
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: -0.02em;
+}
+
+/* progress small bar track/indicator */
+.progress-track {
+  height: 8px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 999px;
+}
+.progress-fill {
+  height: 8px;
+  background: linear-gradient(90deg,#1f6b73,#3bb1c2);
+  border-radius: 999px;
+  transition: width 400ms ease;
+}
