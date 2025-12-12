@@ -2,6 +2,7 @@ import React from "react";
 import { QuizQuestion, Option } from "../types";
 import clsx from "clsx";
 import { motion } from "framer-motion";
+
 type Props = {
   questions: QuizQuestion[];
   onFinish: (scorePercent: number) => void;
@@ -9,21 +10,21 @@ type Props = {
 
 export default function Quiz({ questions, onFinish }: Props) {
   const [index, setIndex] = React.useState(0);
-  const [selected, setSelected] = React.useState<Record<string,string>>({});
+  const [selected, setSelected] = React.useState<Record<string, string>>({});
 
   const q = questions[index];
 
   function choose(option: Option) {
-    setSelected(prev => ({ ...prev, [q.id]: option.id }));
+    setSelected((prev) => ({ ...prev, [q.id]: option.id }));
   }
 
   function next() {
-    if (index < questions.length - 1) setIndex(i => i + 1);
+    if (index < questions.length - 1) setIndex((i) => i + 1);
     else {
       let correct = 0;
       for (const qq of questions) {
         const selId = selected[qq.id];
-        const chosen = qq.options.find(o => o.id === selId);
+        const chosen = qq.options.find((o) => o.id === selId);
         if (chosen && chosen.correct) correct++;
       }
       const percent = Math.round((correct / questions.length) * 100);
@@ -32,7 +33,7 @@ export default function Quiz({ questions, onFinish }: Props) {
   }
 
   function prev() {
-    if (index > 0) setIndex(i => i - 1);
+    if (index > 0) setIndex((i) => i - 1);
   }
 
   React.useEffect(() => {
@@ -44,18 +45,30 @@ export default function Quiz({ questions, onFinish }: Props) {
     return () => window.removeEventListener("keydown", handler);
   }, [index, selected]);
 
-  const progressPct = Math.round((Object.keys(selected).length / questions.length) * 100);
+  const progressPct = Math.round(
+    (Object.keys(selected).length / questions.length) * 100
+  );
 
   return (
     <main className="w-[980px] bg-[var(--card)] p-12 rounded-2xl2 quiz-card relative">
       <header className="text-center mb-8">
-        <h1 className="hero-title text-6xl text-[#2f6b75] font-semibold">Test Your Knowledge</h1>
-        <p className="mt-3 inline-block text-sm px-4 py-2 bg-white rounded-md shadow-sm" style={{color:'var(--muted)'}}>Answer all questions to see your results</p>
+        <h1 className="hero-title text-6xl text-[#2f6b75] font-semibold">
+          Test Your Knowledge
+        </h1>
+        <p
+          className="mt-3 inline-block text-sm px-4 py-2 bg-white rounded-md shadow-sm"
+          style={{ color: "var(--muted)" }}
+        >
+          Answer all questions to see your results
+        </p>
       </header>
 
       <div className="max-w-xl mx-auto">
         <div className="progress-track mb-6">
-          <div className="progress-fill" style={{ width: `${progressPct}%` }} />
+          <div
+            className="progress-fill"
+            style={{ width: `${progressPct}%` }}
+          />
         </div>
 
         <section aria-labelledby={`q-${q.id}`} className="mb-6">
@@ -63,7 +76,11 @@ export default function Quiz({ questions, onFinish }: Props) {
             <span id={`q-${q.id}`}>{q.question}</span>
           </div>
 
-          <ul role="list" aria-label={`Options for ${q.question}`} className="mt-6 space-y-4">
+          <ul
+            role="list"
+            aria-label={`Options for ${q.question}`}
+            className="mt-6 space-y-4"
+          >
             {q.options.map((opt) => {
               const isSelected = selected[q.id] === opt.id;
               return (
@@ -72,11 +89,15 @@ export default function Quiz({ questions, onFinish }: Props) {
                     onClick={() => choose(opt)}
                     className={clsx(
                       "w-full text-left p-6 rounded-lg border focus:ring focus-ring transition-shadow",
-                      isSelected ? "bg-[#dff6f8] border-[#bfeaf0]" : "bg-white border-[#e8f3f5]"
+                      isSelected
+                        ? "bg-[#dff6f8] border-[#bfeaf0]"
+                        : "bg-white border-[#e8f3f5]"
                     )}
                     aria-pressed={isSelected}
                   >
-                    <div className="text-center font-medium text-base">{opt.text}</div>
+                    <div className="text-center font-medium text-base">
+                      {opt.text}
+                    </div>
                   </button>
                 </li>
               );
@@ -95,7 +116,9 @@ export default function Quiz({ questions, onFinish }: Props) {
           </button>
 
           <div className="flex items-center gap-4">
-            <div className="text-sm text-[#5f7a7f]">{Object.keys(selected).length}/{questions.length} answered</div>
+            <div className="text-sm text-[#5f7a7f]">
+              {Object.keys(selected).length}/{questions.length} answered
+            </div>
             <button
               onClick={next}
               aria-label="Next question"
@@ -106,25 +129,45 @@ export default function Quiz({ questions, onFinish }: Props) {
           </div>
         </div>
       </div>
-<motion.img
-  src="/assets/paw.png"
-  alt=""
-  aria-hidden
-  className="absolute left-6 bottom-6 w-36 h-auto pointer-events-none select-none origin-bottom"
-  animate={{
-    rotate: [0, -20, -35, -20, 0],        // folding inward like a cat paw
-    scaleY: [1, 0.9, 0.8, 0.9, 1],        // slight squish like real movement
-    y: [0, 4, 6, 4, 0],                   // small vertical dip
-  }}
-  transition={{
-    duration: 2,
-    repeat: Infinity,
-    repeatDelay: 0.5,
-    ease: "easeInOut"
-  }}
-/>
 
-     
+      {/* Paw beckon wrapper with perspective for a 3D folding illusion */}
+      <div
+        style={{
+          position: "absolute",
+          left: 24, // left-6
+          bottom: 24, // bottom-6
+          width: 144, // w-36
+          pointerEvents: "none",
+          perspective: 700,
+          WebkitPerspective: 700,
+        }}
+        aria-hidden="true"
+      >
+        <motion.img
+          src="/assets/paw.png"
+          alt=""
+          style={{
+            width: "100%",
+            height: "auto",
+            transformStyle: "preserve-3d",
+            transformOrigin: "50% 100%", // pivot around bottom center
+          }}
+          animate={{
+            // rotateX folds forward/back; rotateY gives subtle swivel; scale for soft squash
+            rotateX: [0, -22, -40, -22, 0],
+            rotateY: [0, 6, -6, 6, 0],
+            scale: [1, 0.98, 0.94, 0.98, 1],
+            y: [0, 6, 12, 6, 0],
+          }}
+          transition={{
+            duration: 2.2,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatDelay: 1.0,
+          }}
+          className="pointer-events-none select-none"
+        />
+      </div>
     </main>
   );
 }
